@@ -1,6 +1,8 @@
 import App from './App.vue'
 
-import bootstrap from '@/common/index'
-import "./style.scss"
+// 路由
+import router from './router'
 
-bootstrap(App, null)
+import bootstrap from '@/common/index'
+
+bootstrap(App, router)

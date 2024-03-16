@@ -6,12 +6,17 @@
     "src/**/*.vue"
   ],
   "compilerOptions": {
+    "ignoreDeprecations": "5.0",
     "baseUrl": ".",
     "paths": {
       "@/*": [
         "./src/*"
       ]
-    }
+    },
+    "types": [
+      "@types/node",
+      "@types/react"
+    ]
   },
   "lib": [
     "es5",

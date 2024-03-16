@@ -1,3 +1,4 @@
 export default {
-    "confirm": () => import("./confirm")
+    "what": () => import("./what"),
+    "pdf-reader": () => import("./pdf-reader")
 }

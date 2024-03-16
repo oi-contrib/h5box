@@ -1,21 +1,32 @@
 {
-  "name": "h5office",
+  "name": "h5box",
   "version": "0.0.0",
-  "description": "提供H5版本的自动化办公常用处理方法",
+  "description": "H5碎片化笔记（基于第三方库或框架）",
+  "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "devby --delete ./docs && vue-tsc --noEmit && vite build"
+    "build": "devby --delete ./docs && node ./build/build",
+    "server": "devby -s 20000"
   },
   "license": "MIT",
-  "type":"module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/fragement-contrib/h5box.git"
+  },
+  "author": {
+    "name": "zxl20070701",
+    "url": "https://zxl20070701.github.io/notebook/home.html"
+  },
   "dependencies": {
     "pdfjs-dist": "2.14.305",
     "pinia": "^2.0.27",
-    "vislite": "^0.7.1",
+    "vislite": "^0.8.0",
     "vue": "^3.2.37",
     "vue-router": "^4.1.2"
   },
   "devDependencies": {
+    "@types/node": "^20.11.19",
+    "@types/react": "^18.2.65",
     "@vitejs/plugin-vue": "^3.0.1",
     "@vitejs/plugin-vue-jsx": "^2.0.0",
     "@vue/tsconfig": "^0.1.3",

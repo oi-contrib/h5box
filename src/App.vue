@@ -1,150 +1,186 @@
 <template>
-  <div class="main-view">
-    <h1>
-      h5office
-      <div class="tips">提供H5版本的自动化办公常用处理方法</div>
-      <div class="goback" @click="router.push('/')">返回首页 &gt;&gt;</div>
-    </h1>
-    <div class="content">
-      <router-view></router-view>
+    <div class="main-view">
+        <div class="quick-link left">
+            <a class="office" href="./office/index.html" target="_blank">
+                办公应用
+            </a>
+        </div>
+        <div class="quick-link right">
+            <a class="notebook" href="https://zxl20070701.github.io/notebook" target="_blank">
+                文档笔记
+            </a>
+            <a class="toolbox" href="https://zxl20070701.github.io/toolbox" target="_blank">
+                实用工具
+            </a>
+        </div>
+        <div class="taskline">
+            <ul>
+                <li class="pdf" title="PDF阅读器" @click="openApplication('pdf-reader')"></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li class="split"></li>
+                <li class="what" @click="openApplication('what')"></li>
+            </ul>
+        </div>
     </div>
-    <footer class="foot">
-      本项目由
-      <a class="heart" href="https://zxl20070701.github.io/notebook/home.html" target="_blank">
-        z Z ...
-      </a>
-      维护
-
-      <div class="right">
-        <a href="https://github.com/fragement-contrib/h5office" target="_blank">查看源码</a>
-        <a href="https://github.com/fragement-contrib/h5office/issues" target="_blank">联系我们</a>
-        <span>
-          邮箱：<a :href="emailUrl" target="_blank">1904314465@qq.com</a>
-        </span>
-      </div>
-    </footer>
-  </div>
-  <div class="dialog-view">
-    <!-- 统一遮罩 -->
-    <div class="mask"></div>
-    <ui-dialogs v-for="(dialog, index) in dialogStore.fetchList" :id="dialog.id" :data="dialog.data"
-      :key="index"></ui-dialogs>
-  </div>
+    <div class="dialog-view">
+        <!-- 统一遮罩 -->
+        <div class="mask"></div>
+        <ui-dialogs v-for="(dialog, index) in dialogStore.fetchList"
+            :dialog="dialogs[dialog.id as keyof typeof dialogs]" :data="dialog.data" :key="index"></ui-dialogs>
+    </div>
 </template>
 <script setup lang="ts">
-import { useRouter } from "vue-router";
 
-import { useDialogStore } from "./stores/index";
-import uiDialogs from "./components/dialogs.vue";
+import { useDialogStore } from "@/common/stores/dialog"
+import uiDialogs from "@/common/components/dialogs.vue"
+import dialogs from "./dialogs/lazy-load"
 
-let router = useRouter();
+let dialogStore = useDialogStore()
 
-let dialogStore = useDialogStore();
+// 打开应用方法
+let openApplication = (appName: string) => {
+    window.location.href = "#/" + appName
+    dialogStore.openDialog({
+        id: appName,
+        callback() {
+            window.location.href = "#/"
+        }
+    })
+}
 
-let emailBody = `你好：
-
-使用 h5office 过程中，我遇到了一些问题，希望获得帮助，具体如下：
-
-1、问题描述
-（描述一下你的问题）
-
-2、截图
-（对帮助你或者描述清楚问题有用的截图，可以多张）
-
-3、期望
-（你期望的结果或获得怎么样的帮助）
-
-4、更多
-（需要补充的，如果没有可以空着）
-
---------------------------------------------------------------------------------------------------------------
-
-邮件创建时间：${new Date()}
-
-`;
-let emailUrl: string = `mailto:1904314465@qq.com?subject=${encodeURIComponent(
-  "h5office 期望获得帮助"
-)}&body=${encodeURIComponent(emailBody)}`;
+// 是否需要默认打开
+let appName = window.location.hash.replace(/^#\/?/, '')
+if (appName && dialogs[appName as keyof typeof dialogs]) {
+    openApplication(appName)
+}
 
 </script>
 <style lang="scss" scoped>
-.dialog-view {
-  &>.mask {
-    background-color: rgba(230, 227, 227, 0.726);
-    position: fixed;
-    left: 0;
-    top: 0;
+.main-view {
     width: 100vw;
     height: 100vh;
-    display: none;
+    background-image: url("./images/pc-desktop.jpeg");
+    overflow: hidden;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
 
-    &:not(:last-child) {
-      display: block;
+    &>.taskline {
+        position: fixed;
+        width: 100vw;
+        left: 0;
+        bottom: 5px;
+        text-align: center;
+
+        &>ul {
+            display: inline-block;
+            background-color: rgba(199, 197, 197, 0.317);
+            border-radius: 10px;
+            padding: 5px;
+
+            &>li {
+                display: inline-block;
+                width: 35px;
+                height: 35px;
+                margin: 2px 5px;
+                background-repeat: no-repeat;
+                background-size: 95% auto;
+                background-position: center;
+                font-size: 0;
+                vertical-align: top;
+                cursor: pointer;
+
+                &:hover {
+                    background-size: 100% auto;
+                }
+
+                &.split {
+                    background-color: #333535;
+                    width: 1px;
+                }
+
+                &.pdf {
+                    background-image: url("./images/pdf.png");
+                }
+
+                &.what{
+                    background-image: url("./images/what.png");
+                }
+            }
+        }
     }
-  }
+
+    &>.quick-link {
+        position: fixed;
+        top: 120px;
+        background-color: white;
+        box-shadow: 0 0 6px 0px #d6cdcd;
+        padding: 5px;
+        width: 60px;
+
+        &.left {
+            border-radius: 0 10px 10px 0;
+            left: 0;
+        }
+
+        &.right {
+            border-radius: 10px 0 0 10px;
+            right: 0;
+        }
+
+        &>a {
+            display: block;
+            font-size: 12px;
+            height: 80px;
+            width: 50px;
+            background-size: 80% auto;
+            background-position: center 10px;
+            background-repeat: no-repeat;
+            padding-top: 50px;
+            line-height: 30px;
+            text-align: center;
+            color: black;
+            font-weight: 800;
+
+            &:hover {
+                text-decoration: underline;
+            }
+
+            &.office {
+                background-image: url("./office.jpeg");
+                background-size: 100% auto;
+            }
+
+            &.notebook {
+                background-image: url("./images/notebook.png");
+            }
+
+            &.toolbox {
+                background-image: url("./images/toolbox.png");
+            }
+        }
+    }
 }
 
-.main-view {
-  &>h1 {
-    line-height: 60px;
-    border-bottom: 1px solid rgb(232, 232, 232);
-    background-image: url("./images/logo.jpeg");
-    background-repeat: no-repeat;
-    background-size: auto 90%;
-    background-position: 20px center;
-    padding-left: 90px;
+.dialog-view {
+    &>.mask {
+        background-color: rgb(0 0 0 / 30%);
+        position: fixed;
+        left: 0;
+        top: 0;
+        width: 100vw;
+        height: 100vh;
+        display: none;
 
-    &>.tips {
-      display: inline-block;
-      font-size: 14px;
-      vertical-align: bottom;
-      font-weight: 400;
-      color: gray;
+        &:not(:last-child) {
+            display: block;
+        }
     }
-
-    &>.goback {
-      white-space:nowrap;
-      position: fixed;
-      right: 0;
-      top: 10px;
-      width: 100px;
-      line-height: 30px;
-      background-color: #F44336;
-      color: white;
-      padding: 5px 10px;
-      font-size: 14px;
-      border-radius: 5px 0 0 5px;
-      cursor: pointer;
-    }
-  }
-
-  .content {
-    min-height: calc(100vh - 112px);
-  }
-
-  .foot {
-    background-color: rgb(244, 244, 244);
-    padding: 0 20px;
-    line-height: 50px;
-    color: rgb(26, 26, 26);
-    font-size: 14px;
-
-    .right {
-      float: right;
-    }
-
-    a {
-      color: inherit;
-      margin-right: 20px;
-      text-decoration: underline;
-      font-weight: 800;
-
-      &.heart {
-        background-image: url("./images/heart.svg");
-        background-repeat: no-repeat;
-        padding-left: 30px;
-      }
-    }
-  }
 }
 </style>
