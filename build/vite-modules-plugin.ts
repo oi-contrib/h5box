@@ -31,6 +31,9 @@ export default function (options: OptionsType) {
                 if (buildName != "index") {
                     rollupOptions.input = `@virtual:${buildName}/template.html`
                     config.build.outDir = `./docs/${buildName}`
+
+                    // 子模块的时候不需要再次复制public内容
+                    config.publicDir = false
                 }
 
                 // 如果是入口

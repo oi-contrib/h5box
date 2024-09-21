@@ -1,14 +1,7 @@
 <template>
     <div class="main-view">
-        <h1>
-            h5office
-            <div class="tips">提供H5版本的自动化办公常用处理方法</div>
-            <div class="goback">
-                <span @click="router.push('/')">回到首页</span>
-                ｜
-                <a target="_blank" href="../index.html">h5box</a>
-            </div>
-        </h1>
+        <AppHeader title="h5office" tips="提供H5版本的自动化办公常用处理方法
+        " logo="../office.jpeg" @goback="router.push('/')"></AppHeader>
         <div class="content">
             <router-view></router-view>
         </div>
@@ -20,8 +13,8 @@
             维护
 
             <div class="right">
-                <a href="https://github.com/fragement-contrib/h5box" target="_blank">查看源码</a>
-                <a href="https://github.com/fragement-contrib/h5box/issues" target="_blank">联系我们</a>
+                <a href="https://github.com/zxl20070701/h5box" target="_blank">查看源码</a>
+                <a href="https://github.com/zxl20070701/h5box/issues" target="_blank">联系我们</a>
                 <span>
                     邮箱：<a :href="emailUrl" target="_blank">1904314465@qq.com</a>
                 </span>
@@ -37,6 +30,7 @@
 </template>
 
 <script setup lang="ts">
+import AppHeader from '@/components/app-header.vue'
 import { useRouter } from "vue-router"
 
 import { useDialogStore } from "@/common/stores/dialog"
@@ -92,50 +86,6 @@ let emailUrl: string = `mailto:1904314465@qq.com?subject=${encodeURIComponent(
 }
 
 .main-view {
-    &>h1 {
-        line-height: 60px;
-        border-bottom: 1px solid rgb(232, 232, 232);
-        background-image: url("./images/logo.jpeg");
-        background-repeat: no-repeat;
-        background-size: auto 90%;
-        background-position: 20px center;
-        padding-left: 90px;
-
-        &>.tips {
-            display: inline-block;
-            font-size: 14px;
-            vertical-align: bottom;
-            font-weight: 400;
-            color: gray;
-        }
-
-        &>.goback {
-            white-space: nowrap;
-            position: fixed;
-            right: 0;
-            top: 10px;
-            line-height: 30px;
-            background-color: #d5d9db;
-            padding: 5px 10px;
-            font-size: 14px;
-            border-radius: 5px 0 0 5px;
-            cursor: pointer;
-
-            &>span {
-                background-color: rgb(0, 0, 0);
-                padding: 5px 10px;
-                color: white;
-                border-radius: 5px;
-            }
-
-            &>a {
-                padding-right: 10px;
-                color: black;
-                text-decoration: underline;
-            }
-        }
-    }
-
     .content {
         min-height: calc(100vh - 112px);
     }

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { resolve } from "path"
 import viteModulesPlugin from './build/vite-modules-plugin'
+import viteShaderPlugin from './build/vite-shader-plugin'
 import vue from '@vitejs/plugin-vue'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 
@@ -32,5 +33,5 @@ export default defineConfig({
         modulesDir: "src/modules",
         template: "index.html",
         index: resolve(__dirname, "./src/index.html"),
-    })]
+    }), viteShaderPlugin()]
 })

@@ -1,23 +1,23 @@
-import { defineComponent, ref } from 'vue'
-import AppFrame from '@/components/app-frame.vue'
+import { defineComponent, ref } from 'vue';
+import AppFrame from '@/components/app-frame.vue';
 
-let icon = new URL('../images/pdf.png', import.meta.url).href
-let addFile = new URL('../images/addFile.svg', import.meta.url).href
+let icon = new URL('../images/pdf.png', import.meta.url).href;
+let addFile = new URL('../images/addFile.svg', import.meta.url).href;
 
-import * as pdfjsLib from "pdfjs-dist"
-import { pdfjsLibPath, pdfjsWorkerSrc } from "@/common/utils/pdfjs"
+import * as pdfjsLib from "pdfjs-dist";
+import { pdfjsLibPath, pdfjsWorkerSrc } from "@/common/utils/pdfjs";
 
-pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerSrc
+pdfjsLib.GlobalWorkerOptions.workerSrc = pdfjsWorkerSrc;
 
 export default defineComponent({
     setup() {
 
-        let viewRef = ref()
+        let viewRef = ref();
 
         let doChange = (event: any) => {
-            let file = event.target.files[0]
+            let file = event.target.files[0];
 
-            let reader = new FileReader()
+            let reader = new FileReader();
             reader.onload = function () {
 
                 pdfjsLib
@@ -30,41 +30,41 @@ export default defineComponent({
                     })
                     .promise.then((pdf: any) => {
 
-                        viewRef.value.innerHTML = ""
-                        viewRef.value.style.backgroundColor = "#d0d0d0"
+                        viewRef.value.innerHTML = "";
+                        viewRef.value.style.backgroundColor = "#d0d0d0";
 
                         for (let index = 0; index < pdf.numPages; index++) {
 
-                            let canvas = document.createElement("canvas")
+                            let canvas = document.createElement("canvas");
 
-                            viewRef.value.appendChild(canvas)
+                            viewRef.value.appendChild(canvas);
 
                             pdf.getPage(index + 1).then(async function (page: any) {
-                                let viewport = page.getViewport({ scale: 1 })
-                                let context = canvas.getContext("2d")
+                                let viewport = page.getViewport({ scale: 1 });
+                                let context = canvas.getContext("2d");
 
-                                let CSS_UNITS = 2 // (3 * 96) / 72
+                                let CSS_UNITS = 2 ;// (3 * 96) / 72
 
-                                canvas.width = Math.floor(viewport.width * CSS_UNITS)
-                                canvas.height = Math.floor(viewport.height * CSS_UNITS)
+                                canvas.width = Math.floor(viewport.width * CSS_UNITS);
+                                canvas.height = Math.floor(viewport.height * CSS_UNITS);
 
-                                canvas.style.width = "70%"
-                                canvas.style.marginBottom = "30px"
+                                canvas.style.width = "70%";
+                                canvas.style.marginBottom = "30px";
 
                                 page.render({
                                     canvasContext: context as CanvasRenderingContext2D,
                                     transform: [CSS_UNITS, 0, 0, CSS_UNITS, 0, 0],
                                     viewport,
-                                })
+                                });
 
-                            })
+                            });
 
                         }
-                    })
+                    });
 
             }
 
-            reader.readAsDataURL(file)
+            reader.readAsDataURL(file);
         }
 
         return () => {

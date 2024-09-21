@@ -4,6 +4,9 @@
             <a class="office" href="./office/index.html" target="_blank">
                 办公应用
             </a>
+            <a class="dataGUI" href="./dataGUI/index.html" target="_blank">
+                可视化
+            </a>
         </div>
         <div class="quick-link right">
             <a class="notebook" href="https://zxl20070701.github.io/notebook" target="_blank">
@@ -109,7 +112,7 @@ if (appName && dialogs[appName as keyof typeof dialogs]) {
                     background-image: url("./images/pdf.png");
                 }
 
-                &.what{
+                &.what {
                     background-image: url("./images/what.png");
                 }
             }
@@ -155,6 +158,10 @@ if (appName && dialogs[appName as keyof typeof dialogs]) {
             &.office {
                 background-image: url("./office.jpeg");
                 background-size: 100% auto;
+            }
+
+            &.dataGUI {
+                background-image: url("./dataGUI.png");
             }
 
             &.notebook {

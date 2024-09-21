@@ -1,7 +1,7 @@
-import { defineComponent } from 'vue'
-import { useDialogStore } from "@/common/stores/dialog"
+import { defineComponent } from 'vue';
+import { useDialogStore } from "@/common/stores/dialog";
 
-let dialogStore = useDialogStore()
+let dialogStore = useDialogStore();
 
 export default defineComponent({
     props: {

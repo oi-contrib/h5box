@@ -1,7 +1,7 @@
-import { defineComponent } from 'vue'
-import { useDialogStore } from "@/common/stores/dialog"
+import { defineComponent } from 'vue';
+import { useDialogStore } from "@/common/stores/dialog";
 
-let dialogStore = useDialogStore()
+let dialogStore = useDialogStore();
 
 export default defineComponent({
     setup() {
@@ -114,7 +114,7 @@ export default defineComponent({
                             backgroundColor: "#c1c3c6",
                             cursor: "pointer"
                         }}>关闭</span>
-                        <a href="https://github.com/fragement-contrib/h5box" target='_blank' style={{
+                        <a href="https://github.com/zxl20070701/h5box" target='_blank' style={{
                             color: "#363737",
                             width: "110px",
                             lineHeight: "30px",
@@ -126,9 +126,9 @@ export default defineComponent({
                         }}>访问源码</a>
                     </div>
                 </div>
-            </div>)
+            </div>);
         }
 
     }
 
-})
+});
