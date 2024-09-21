@@ -9,9 +9,9 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 export default defineConfig({
     base: "./",
     build: {
-        outDir: "./docs",
-        assetsDir: './',
-        rollupOptions: {
+        outDir: "./docs", // 构建时输出目录
+        assetsDir: './', // 放置生成的静态资源的目录
+        rollupOptions: { // 构建后是否进行代码分割
             output: {
                 entryFileNames: "[name]-[hash].js",
                 chunkFileNames: "[name]-[hash].js",

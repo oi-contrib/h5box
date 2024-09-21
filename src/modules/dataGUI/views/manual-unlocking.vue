@@ -40,7 +40,10 @@
 import type CanvasType from 'vislite/types/Canvas';
 
 import { ref, onMounted } from "vue";
-import { Canvas } from "vislite";
+
+// import { Canvas } from "vislite";
+import Canvas from "vislite/lib/Canvas/index.es.min";
+
 // import isMobile from "../../../tools/isMobile";
 import offsetValue from "../../../tools/offsetValue";
 

@@ -3,7 +3,11 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from "vue";
-import { Canvas, getLoopColors } from "vislite";
+
+// import { Canvas, getLoopColors } from "vislite";
+import Canvas from "vislite/lib/Canvas/index.es.min";
+import getLoopColors from "vislite/lib/getLoopColors/index.es.min";
+
 import data from "@/data/sankey.json";
 import toSankeyImageData from "./toSankeyImageData";
 
